@@ -50,7 +50,7 @@ public class TrelloTest {
 
         TrelloList createdList = retrofitBuilder.getTrelloapi().createList(trelloList, name, boardId).execute().body();
         listId = createdList.getId();
-        System.out.println(listId);
+        Assert.assertEquals(createdList.getName(), name);
 
 
     }
@@ -63,7 +63,7 @@ public class TrelloTest {
 
         TrelloCard createdCard = retrofitBuilder.getTrelloapi().createCard(trelloCard, name, listId).execute().body();
         cardId = createdCard.getId();
-        System.out.println(cardId);
+        Assert.assertEquals(createdCard.getName(), name);
     }
 
     @Test(priority = 5)
@@ -74,7 +74,7 @@ public class TrelloTest {
         trelloCard.setName(updatedName);
 
         TrelloCard updateCard = retrofitBuilder.getTrelloapi().updateCard(trelloCard, cardId).execute().body();
-        System.out.println(updatedName);
+        Assert.assertEquals(updateCard.getName(), updatedName);
 
     }
 
