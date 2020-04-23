@@ -1,3 +1,4 @@
+
 import less5.Board;
 import less5.RetrofitBuilder;
 import less5.TrelloCard;
@@ -6,13 +7,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.List;
+
+
+
 
 public class TrelloTest {
 
     private String boardId;
     private String listId;
     private String cardId;
+    private String cardName = "My Card";
 
 
 
@@ -70,22 +74,34 @@ public class TrelloTest {
     public void checkUpdateCard() throws IOException {
         RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
         TrelloCard trelloCard = new TrelloCard();
-        String updatedName = "My Card";
-        trelloCard.setName(updatedName);
+
+        trelloCard.setName(cardName);
 
         TrelloCard updateCard = retrofitBuilder.getTrelloapi().updateCard(trelloCard, cardId).execute().body();
-        Assert.assertEquals(updateCard.getName(), updatedName);
+        Assert.assertEquals(updateCard.getName(), cardName);
 
     }
 
-    @Test(priority = 6)
+    @Test(priority = 7)
     public void delateCard() throws IOException {
         RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
         TrelloCard trelloCard = new TrelloCard();
 
+
         int code = retrofitBuilder.getTrelloapi().delateCard(cardId, trelloCard.getKey(), trelloCard.getToken()).execute().code();
 
         Assert.assertEquals(code, 200);
+
+    }
+
+    @Test(priority = 6)
+
+    public void getCard() throws IOException{
+        RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
+        TrelloCard trelloCard = new TrelloCard();
+
+        TrelloCard getCard = retrofitBuilder.getTrelloapi().getCard(cardId, trelloCard.getKey(), trelloCard.getToken()).execute().body();
+        Assert.assertEquals(getCard.getName(), cardName);
 
     }
 }

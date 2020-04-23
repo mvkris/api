@@ -21,8 +21,10 @@ public interface Trelloapi {
     Call<TrelloCard> updateCard(@Body TrelloCard trelloCard, @Path("id") String id);
 
     @DELETE ("/1/cards/{id}/")
-    Call<Board> delateCard(@Path("id") String id, @Query("key") String key, @Query("token") String token);
+    Call<TrelloCard> delateCard(@Path("id") String id, @Query("key") String key, @Query("token") String token);
 
+    @GET ("/1/cards/{id}/")
+    Call<TrelloCard> getCard(@Path("id") String id, @Query("key") String key, @Query("token") String token);
 
 
 
